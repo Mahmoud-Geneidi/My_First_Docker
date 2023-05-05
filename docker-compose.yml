@@ -1,0 +1,20 @@
+version: '3.9'
+
+services:
+  rabbitmq:
+    image: rabbitmq:3.9
+    ports:
+      - 5672:5672
+      - 15672:15672
+
+  frontend:
+    image: app
+    ports:
+      - 80:80
+    environment:
+      - RABBITMQ_HOST=rabbitmq
+
+  backend:
+    image: back_app
+    environment:
+      - RABBITMQ_HOST=rabbitmq
